@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AddItemViewController: UITableViewController {
+class ItemDetailViewController: UITableViewController {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
-    var delegate : AddItemViewDelegate?
+    var delegate : ItemDetailViewControllerDelegate?
     var itemToEdit : CheckListItem?
     
     override func viewDidLoad() {
@@ -28,14 +28,14 @@ class AddItemViewController: UITableViewController {
         let item = CheckListItem(text: textField.text!)
         
         if(itemToEdit != nil){
-            delegate?.addItemViewController(self, didFinishEditingItem: item)
+            delegate?.ItemDetailViewController(self, didFinishEditingItem: item)
         }else{
-            delegate?.addItemViewController(self, didFinishAddingItem: item)
+            delegate?.ItemDetailViewController(self, didFinishAddingItem: item)
         }
     }
     
     @IBAction func cancel() {
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.ItemDetailViewControllerDidCancel(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,11 +46,9 @@ class AddItemViewController: UITableViewController {
         self.doneButton.isEnabled = !(textField.text?.isEmpty)!
     }
     
-    
-    
 }
-protocol AddItemViewDelegate : class {
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
-    func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem)
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem)
+protocol ItemDetailViewControllerDelegate : class {
+    func ItemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
+    func ItemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: CheckListItem)
+    func ItemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: CheckListItem)
 }

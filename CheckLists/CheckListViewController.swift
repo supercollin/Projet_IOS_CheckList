@@ -11,14 +11,20 @@ import UIKit
 class CheckListViewController: UITableViewController {
     private var listcheckListItem: Array<CheckListItem>!
     private var indexPathEdit : IndexPath!
+    
+    class var documentDirectory : URL{
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
+    class var dataFileUrl : URL{
+        return documentDirectory.appendingPathComponent("CheckList").appendingPathExtension("json")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let checkListItem = CheckListItem(text: "Finir le cours d’iOS")
-        let checkListItem2 = CheckListItem(text:"Mettre à jour XCode", checked:true)
-        listcheckListItem = [checkListItem,checkListItem2]
         
+        loadCheckListItem() 
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,10 +72,32 @@ class CheckListViewController: UITableViewController {
         cell.textLabel?.text = item.text
     }
 
+    func saveCheckListItems(){
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        
+        do {
+            let data = try encoder.encode(listcheckListItem)
+            try data.write(to: CheckListViewController.dataFileUrl)
+        } catch {
+            
+        }
+    }
+    
+    func loadCheckListItem(){
+        let decoder = JSONDecoder()
+        do {
+            let data = try String(contentsOf: CheckListViewController.dataFileUrl, encoding: .utf8).data(using: .utf8)
+            listcheckListItem = try decoder.decode([CheckListItem].self, from: data!)
+        } catch {
+            
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let identifier = segue.identifier, let navigationViewController = segue.destination as? UINavigationController,
-            let destination = navigationViewController.topViewController as? AddItemViewController {//test
+            let destination = navigationViewController.topViewController as? ItemDetailViewController {//test
             
             if (identifier == "addItem") {
                 destination.delegate = self
@@ -86,22 +114,24 @@ class CheckListViewController: UITableViewController {
     
 }
 
-extension CheckListViewController: AddItemViewDelegate{
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController){
+extension CheckListViewController: ItemDetailViewControllerDelegate{
+    func ItemDetailViewControllerDidCancel(_ controller: ItemDetailViewController){
         self.dismiss(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem){
+    func ItemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: CheckListItem){
          listcheckListItem.append(item)
          let indexPath = IndexPath(row: listcheckListItem.count-1, section: 0)
          tableView.insertRows(at: [indexPath] , with: .automatic)
+         saveCheckListItems()
          self.dismiss(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem){
+    func ItemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: CheckListItem){
         let cell = tableView.cellForRow(at: indexPathEdit) as! CheckListItemCell
         cell.textCell.text = item.text
         listcheckListItem[indexPathEdit.row].text = item.text
+        saveCheckListItems()
         self.dismiss(animated: true)
     }
 }
