@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--CheckList-->
+        <!--Name of the list-->
         <scene sceneID="dcI-7n-Bmx">
             <objects>
                 <tableViewController id="RUK-ub-gHd" customClass="CheckListViewController" customModule="CheckLists" customModuleProvider="target" sceneMemberID="viewController">
@@ -61,7 +61,7 @@
                             <outlet property="delegate" destination="RUK-ub-gHd" id="jBi-Pi-iEU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="CheckList" id="qQ7-d7-8Xr">
+                    <navigationItem key="navigationItem" title="Name of the list" id="qQ7-d7-8Xr">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="SI6-zr-rso">
                             <connections>
                                 <segue destination="0zo-D2-Jry" kind="presentation" identifier="addItem" id="v4N-tN-DpX"/>
@@ -156,6 +156,38 @@
             </objects>
             <point key="canvasLocation" x="1224.8" y="-27.436281859070466"/>
         </scene>
+        <!--CheckLists-->
+        <scene sceneID="IgD-ZI-XdK">
+            <objects>
+                <tableViewController title="CheckLists" id="zLE-gZ-1r8" customClass="AllListViewController" customModule="CheckLists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TvL-eb-PAX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="CheckList" id="gpy-Z6-LCQ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gpy-Z6-LCQ" id="fdV-Us-CO9">
+                                    <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="RUK-ub-gHd" kind="show" identifier="goToItemList" id="2X3-Nt-BW6"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="zLE-gZ-1r8" id="RPj-zZ-s1F"/>
+                            <outlet property="delegate" destination="zLE-gZ-1r8" id="Wxa-VF-IbA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Lbf-w7-sT3"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xiK-55-hDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1404" y="-27"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="BCk-io-fZk">
             <objects>
@@ -167,12 +199,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="RUK-ub-gHd" kind="relationship" relationship="rootViewController" id="N6W-xQ-inn"/>
+                        <segue destination="zLE-gZ-1r8" kind="relationship" relationship="rootViewController" id="L5j-8D-0mO"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tlZ-jq-lkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1423" y="-27"/>
+            <point key="canvasLocation" x="-2196" y="-27"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

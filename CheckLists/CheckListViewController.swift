@@ -10,6 +10,7 @@ import UIKit
 
 class CheckListViewController: UITableViewController {
     private var listcheckListItem: Array<CheckListItem>!
+    var list : CheckList!
     private var indexPathEdit : IndexPath!
     
     class var documentDirectory : URL{
@@ -22,9 +23,13 @@ class CheckListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = list.name
+        listcheckListItem = list.items
         // Do any additional setup after loading the view, typically from a nib.
-        
-        loadCheckListItem() 
+    }
+    
+    override func awakeFromNib(){
+        //loadCheckListItem()
     }
     
     override func didReceiveMemoryWarning() {
