@@ -14,14 +14,24 @@ class AddItemViewController: UITableViewController {
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
     var delegate : AddItemViewDelegate?
+    var itemToEdit : CheckListItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(itemToEdit != nil){
+            textField.text = itemToEdit?.text
+            self.doneButton.isEnabled = false
+        }
     }
     
     @IBAction func done() {
         let item = CheckListItem(text: textField.text!)
-        delegate?.addItemViewController(self, didFinishAddingItem: item)
+        
+        if(itemToEdit != nil){
+            delegate?.addItemViewController(self, didFinishEditingItem: item)
+        }else{
+            delegate?.addItemViewController(self, didFinishAddingItem: item)
+        }
     }
     
     @IBAction func cancel() {
@@ -42,4 +52,5 @@ class AddItemViewController: UITableViewController {
 protocol AddItemViewDelegate : class {
     func addItemViewControllerDidCancel(_ controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem)
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem)
 }

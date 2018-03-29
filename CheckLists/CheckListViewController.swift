@@ -10,6 +10,7 @@ import UIKit
 
 class CheckListViewController: UITableViewController {
     private var listcheckListItem: Array<CheckListItem>!
+    private var indexPathEdit : IndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,15 +67,20 @@ class CheckListViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addItem"){
-            let addItemVC = segue.destination as! UINavigationController
-            let destination = addItemVC.topViewController as! AddItemViewController
-            destination.delegate = self
-        }
-        if(segue.identifier == "editItem"){
-            let addItemVC = segue.destination as! UINavigationController
-            let destination = addItemVC.topViewController as! AddItemViewController
-            destination.delegate = self
+        
+        if let identifier = segue.identifier, let navigationViewController = segue.destination as? UINavigationController,
+            let destination = navigationViewController.topViewController as? AddItemViewController {//test
+            
+            if (identifier == "addItem") {
+                destination.delegate = self
+            } else if identifier == "editItem",
+                let cell = sender as? UITableViewCell {
+                destination.delegate = self
+                let indexPath = tableView.indexPath(for: cell)
+                indexPathEdit = indexPath
+                let item = listcheckListItem[indexPath!.row]
+                destination.itemToEdit = item
+            }
         }
     }
     
@@ -84,11 +90,19 @@ extension CheckListViewController: AddItemViewDelegate{
     func addItemViewControllerDidCancel(_ controller: AddItemViewController){
         self.dismiss(animated: true)
     }
+    
     func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: CheckListItem){
          listcheckListItem.append(item)
          let indexPath = IndexPath(row: listcheckListItem.count-1, section: 0)
          tableView.insertRows(at: [indexPath] , with: .automatic)
          self.dismiss(animated: true)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: CheckListItem){
+        let cell = tableView.cellForRow(at: indexPathEdit) as! CheckListItemCell
+        cell.textCell.text = item.text
+        listcheckListItem[indexPathEdit.row].text = item.text
+        self.dismiss(animated: true)
     }
 }
 
