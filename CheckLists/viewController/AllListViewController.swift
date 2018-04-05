@@ -65,6 +65,7 @@ class AllListViewController: UITableViewController {
         let row = indexPath.row
         cell.textLabel?.text = listCheckList[row].name
         cell.detailTextLabel?.text = "\(listCheckList[row].uncheckedItemsCount) unchecked items"
+        cell.imageView?.image = listCheckList[row].icon.image
         return cell
     }
     
@@ -76,7 +77,7 @@ class AllListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier, let checkListViewController = segue.destination as? CheckListViewController{
             
-            if let destination = checkListViewController as? CheckListViewController {
+            if let destination = checkListViewController as? CheckListViewController{
             
                 if (identifier == "goToItemList") {
                     destination.delegateUnchecked = self

@@ -12,6 +12,7 @@ class CheckList : Codable  {
     
     var name = ""
     var items: Array<CheckListItem>
+    var icon : IconAsset
     
     var uncheckedItemsCount : Int{
         get{
@@ -33,6 +34,7 @@ class CheckList : Codable  {
         }else{
             self.items = items!
         }
+        self.icon = IconAsset.NoIcon
     }
     
     func addCheckListItem( checkListItem : CheckListItem){

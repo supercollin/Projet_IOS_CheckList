@@ -75,7 +75,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nu6-h4-exh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-535.20000000000005" y="-27.436281859070466"/>
+            <point key="canvasLocation" x="-663" y="345"/>
         </scene>
         <!--Add list-->
         <scene sceneID="RHl-Um-5IL">
@@ -111,6 +111,37 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="faE-CF-5IS">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="eRl-m8-vDC">
+                                        <rect key="frame" x="0.0" y="115" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRl-m8-vDC" id="f9Y-1x-pUN">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYx-Uy-abO">
+                                                    <rect key="frame" x="0.0" y="8" width="42" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H6v-h6-qKW">
+                                                    <rect key="frame" x="306" y="6" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="23y-H4-IWM"/>
+                                                        <constraint firstAttribute="height" constant="36" id="Qyp-aJ-DhQ"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="H6v-h6-qKW" secondAttribute="trailing" id="Ggh-jl-gjJ"/>
+                                                <constraint firstItem="KYx-Uy-abO" firstAttribute="leading" secondItem="f9Y-1x-pUN" secondAttribute="leading" id="xs0-e5-6ds"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="ckA-gN-pC1" id="BMk-6L-NIs"/>
@@ -136,7 +167,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pdv-Sd-ILe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="349.60000000000002" y="-717.39130434782612"/>
+            <point key="canvasLocation" x="221.59999999999999" y="-341.37931034482762"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SXH-6K-1bs">
@@ -152,7 +183,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIy-FG-kfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-535" y="-717"/>
+            <point key="canvasLocation" x="-663" y="-341"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vPr-ld-mwP">
@@ -168,7 +199,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rqY-I8-6vq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="-27"/>
+            <point key="canvasLocation" x="222" y="345"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="Z0J-Hw-pdT">
@@ -235,7 +266,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLF-Ey-82e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1224.8" y="-27.436281859070466"/>
+            <point key="canvasLocation" x="1097" y="345"/>
         </scene>
         <!--CheckLists-->
         <scene sceneID="IgD-ZI-XdK">

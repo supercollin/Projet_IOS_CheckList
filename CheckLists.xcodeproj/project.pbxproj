@@ -19,6 +19,7 @@
 		B876FCF4206D15A400C3D823 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876FCF3206D15A400C3D823 /* ListDetailViewController.swift */; };
 		B876FCF8206D200800C3D823 /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B876FCF7206D200800C3D823 /* CheckList.swift */; };
 		B877391D20761C6500FB286B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877391C20761C6500FB286B /* DataModel.swift */; };
+		B877392020764DBF00FB286B /* IconAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877391F20764DBF00FB286B /* IconAsset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B876FCF3206D15A400C3D823 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		B876FCF7206D200800C3D823 /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		B877391C20761C6500FB286B /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		B877391F20764DBF00FB286B /* IconAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAsset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				B876FCF7206D200800C3D823 /* CheckList.swift */,
 				B8549903205137080004D248 /* CheckListItem.swift */,
 				B877391C20761C6500FB286B /* DataModel.swift */,
+				B877391F20764DBF00FB286B /* IconAsset.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				B876FCF0206CC9C500C3D823 /* CheckListItemCell.swift in Sources */,
 				B85499082051730B0004D248 /* ItemDetailViewController.swift in Sources */,
 				B877391D20761C6500FB286B /* DataModel.swift in Sources */,
+				B877392020764DBF00FB286B /* IconAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
