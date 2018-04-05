@@ -13,6 +13,19 @@ class CheckList : Codable  {
     var name = ""
     var items: Array<CheckListItem>
     
+    var uncheckedItemsCount : Int{
+        get{
+            var nbUnchecked = 0
+            for item in items{
+                if(!item.checked){
+                    nbUnchecked = nbUnchecked + 1
+                }
+            }
+            return nbUnchecked
+        }
+    }
+    
+    
     init(name: String, items : Array<CheckListItem>?) {
         self.name = name
         if(items == nil){

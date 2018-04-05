@@ -12,6 +12,7 @@ class CheckListViewController: UITableViewController {
     private var listcheckListItem: Array<CheckListItem>!
     var list : CheckList!
     private var indexPathEdit : IndexPath!
+    var delegateUnchecked : CheckListViewControllerDelegateUncheckedItems?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class CheckListViewController: UITableViewController {
         }else{
             cell.checkMark.isHidden = true
         }
+        delegateUnchecked?.reloadTableView()
         return cell
     }
     
@@ -46,6 +48,7 @@ class CheckListViewController: UITableViewController {
         listcheckListItem[indexPath.row].toggleChecked()
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadRows(at: [indexPath], with: .automatic)
+        list.items = listcheckListItem
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -106,5 +109,9 @@ extension CheckListViewController: ItemDetailViewControllerDelegate{
         list.items = listcheckListItem
         self.dismiss(animated: true)
     }
+}
+
+protocol CheckListViewControllerDelegateUncheckedItems : class {
+    func reloadTableView()
 }
 

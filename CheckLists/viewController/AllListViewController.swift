@@ -64,6 +64,7 @@ class AllListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckList", for: indexPath)
         let row = indexPath.row
         cell.textLabel?.text = listCheckList[row].name
+        cell.detailTextLabel?.text = "\(listCheckList[row].uncheckedItemsCount) unchecked items"
         return cell
     }
     
@@ -78,6 +79,7 @@ class AllListViewController: UITableViewController {
             if let destination = checkListViewController as? CheckListViewController {
             
                 if (identifier == "goToItemList") {
+                    destination.delegateUnchecked = self
                     let cell = sender as? UITableViewCell
                     let indexPath = tableView.indexPath(for: cell!)
                     let row = indexPath?.row
@@ -110,7 +112,6 @@ extension AllListViewController : ListDetailViewControllerDelegate{
     }
     
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishAddingItem item: CheckList){
-        print("delegate add")
         listCheckList.append(item)
         let indexPath = IndexPath(row: listCheckList.count-1, section: 0)
         tableView.insertRows(at: [indexPath] , with: .automatic)
@@ -119,12 +120,17 @@ extension AllListViewController : ListDetailViewControllerDelegate{
     }
     
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList){
-        print("delegate edit")
         let cell = tableView.cellForRow(at: indexPathEdit) as! UITableViewCell
         cell.textLabel?.text = item.name
         listCheckList[indexPathEdit.row].name = item.name
         self.dismiss(animated: true)
         dataModel.setListCheckList(list: listCheckList)
+    }
+}
+
+extension AllListViewController : CheckListViewControllerDelegateUncheckedItems{
+    func reloadTableView(){
+        tableView.reloadData()
     }
 }
 
