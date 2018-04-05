@@ -10,6 +10,7 @@ import UIKit
 
 class AllListViewController: UITableViewController {
     private var listCheckList : Array<CheckList>!
+    private var indexPathEdit : IndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,16 +65,55 @@ class AllListViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier, let checkListViewController = segue.destination as? CheckListViewController,
-            let destination = checkListViewController as? CheckListViewController {//test
+        if let identifier = segue.identifier, let checkListViewController = segue.destination as? CheckListViewController{
             
-            if (identifier == "goToItemList") {
-                let cell = sender as? UITableViewCell
-                let indexPath = tableView.indexPath(for: cell!)
-                let row = indexPath?.row
-                destination.list = listCheckList[row!]
+            if let destination = checkListViewController as? CheckListViewController {
+            
+                if (identifier == "goToItemList") {
+                    let cell = sender as? UITableViewCell
+                    let indexPath = tableView.indexPath(for: cell!)
+                    let row = indexPath?.row
+                    destination.list = listCheckList[row!]
+                }
+            }
+                
+        }else if let identifier = segue.identifier,
+            let navigationController = segue.destination as? UINavigationController,
+            let destination = navigationController.topViewController as? ListDetailViewController {
+    
+            if identifier == "editItemList", let cell = sender as? UITableViewCell {
+                destination.delegate = self
+                let indexPath = tableView.indexPath(for: cell)
+                indexPathEdit = indexPath
+                let item = listCheckList[indexPath!.row]
+                destination.itemToEdit = item
+            }else if identifier == "addItem" {
+                destination.delegate = self
             }
         }
     }
-
 }
+
+
+extension AllListViewController : ListDetailViewControllerDelegate{
+    func ListDetailViewControllerDidCancel(_ controller: ListDetailViewController){
+        self.dismiss(animated: true)
+    }
+    
+    func ListDetailViewController(_ controller: ListDetailViewController, didFinishAddingItem item: CheckList){
+        print("delegate add")
+        listCheckList.append(item)
+        let indexPath = IndexPath(row: listCheckList.count-1, section: 0)
+        tableView.insertRows(at: [indexPath] , with: .automatic)
+        self.dismiss(animated: true)
+    }
+    
+    func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList){
+        print("delegate edit")
+        let cell = tableView.cellForRow(at: indexPathEdit) as! UITableViewCell
+        cell.textLabel?.text = item.name
+        listCheckList[indexPathEdit.row].name = item.name
+        self.dismiss(animated: true)
+    }
+}
+
