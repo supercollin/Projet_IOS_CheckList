@@ -25,11 +25,9 @@ class ListDetailViewController: UITableViewController {
         let item = CheckList(name: textfield.text!, items: listItems)
         
         if(itemToEdit != nil){
-            print("done edit")
             item.items = listItems
             delegate?.ListDetailViewController(self, didFinishEditingItem: item)
         }else{
-            print("done add")
             delegate?.ListDetailViewController(self, didFinishAddingItem: item)
         }
     }

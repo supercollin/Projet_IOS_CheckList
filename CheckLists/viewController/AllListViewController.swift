@@ -117,19 +117,24 @@ extension AllListViewController : ListDetailViewControllerDelegate{
         tableView.insertRows(at: [indexPath] , with: .automatic)
         self.dismiss(animated: true)
         dataModel.setListCheckList(list: listCheckList)
+        listCheckList = dataModel.sortChecklists()
+        tableView.reloadData()
     }
     
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList){
-        let cell = tableView.cellForRow(at: indexPathEdit) as! UITableViewCell
+        let cell = tableView.cellForRow(at: indexPathEdit)!
         cell.textLabel?.text = item.name
         listCheckList[indexPathEdit.row].name = item.name
         self.dismiss(animated: true)
         dataModel.setListCheckList(list: listCheckList)
+        listCheckList = dataModel.sortChecklists()
+        tableView.reloadData()
     }
 }
 
 extension AllListViewController : CheckListViewControllerDelegateUncheckedItems{
     func reloadTableView(){
+        listCheckList = dataModel.sortChecklists()
         tableView.reloadData()
     }
 }

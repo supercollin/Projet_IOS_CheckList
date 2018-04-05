@@ -50,4 +50,14 @@ class DataModel {
         return listCheckList
     }
     
+    func sortChecklists()-> [CheckList]{
+        listCheckList.sort { (checkList, secChecklist) -> Bool in
+            if(checkList.name.localizedStandardCompare(secChecklist.name) == ComparisonResult.orderedAscending){
+                return true
+            }
+            return false
+        }
+        return listCheckList
+    }
+    
 }
