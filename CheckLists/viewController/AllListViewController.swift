@@ -11,13 +11,23 @@ import UIKit
 class AllListViewController: UITableViewController {
     private var listCheckList : Array<CheckList>!
     private var indexPathEdit : IndexPath!
+    
+    class var documentDirectory : URL{
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
+    class var dataFileUrl : URL{
+        return documentDirectory.appendingPathComponent("CheckList").appendingPathExtension("json")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         listCheckList = Array<CheckList>()
         
-        /**** liste 1 ****/
+        listCheckList = dataModel.loadCheckList()
+        
+        /*/**** liste 1 ****/
         var item1 = CheckListItem(text: "l1 item1")
         var item2 = CheckListItem(text: "l1 item2")
         var checkListItem = Array<CheckListItem>()
@@ -35,14 +45,7 @@ class AllListViewController: UITableViewController {
         checkListItem.append(item2)
         
         checkList = CheckList(name: "liste2", items: checkListItem)
-        listCheckList.append(checkList)
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        listCheckList.append(checkList)*/
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,6 +65,11 @@ class AllListViewController: UITableViewController {
         let row = indexPath.row
         cell.textLabel?.text = listCheckList[row].name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        listCheckList.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,6 +100,7 @@ class AllListViewController: UITableViewController {
             }
         }
     }
+    
 }
 
 
@@ -106,6 +115,7 @@ extension AllListViewController : ListDetailViewControllerDelegate{
         let indexPath = IndexPath(row: listCheckList.count-1, section: 0)
         tableView.insertRows(at: [indexPath] , with: .automatic)
         self.dismiss(animated: true)
+        dataModel.setListCheckList(list: listCheckList)
     }
     
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList){
@@ -114,6 +124,7 @@ extension AllListViewController : ListDetailViewControllerDelegate{
         cell.textLabel?.text = item.name
         listCheckList[indexPathEdit.row].name = item.name
         self.dismiss(animated: true)
+        dataModel.setListCheckList(list: listCheckList)
     }
 }
 
