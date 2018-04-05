@@ -16,6 +16,8 @@ class IconPickerViewController : UITableViewController{
                     IconAsset.Inbox, IconAsset.Photos, IconAsset.Trips,
                     IconAsset.NoIcon]
     
+    var delegate : IconPickerViewControllerDelegate?
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return iconList.count
@@ -32,7 +34,12 @@ class IconPickerViewController : UITableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.finishSelectIcon(withIcon: iconList[indexPath.row])
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+protocol IconPickerViewControllerDelegate: class {
+    func finishSelectIcon(withIcon icon : IconAsset)
 }

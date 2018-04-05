@@ -26,11 +26,13 @@ class ListDetailViewController: UITableViewController {
         let listItems = Array<CheckListItem>()
         let item = CheckList(name: textfield.text!, items: listItems)
         
+        
         if(itemToEdit != nil){
             navigationItem.title = "Edit List"
             item.items = listItems
             delegate?.ListDetailViewController(self, didFinishEditingItem: item)
         }else{
+            item.icon = IconAsset.Folder
             delegate?.ListDetailViewController(self, didFinishAddingItem: item)
         }
     }
@@ -49,11 +51,25 @@ class ListDetailViewController: UITableViewController {
             textfield.text = itemToEdit?.name
             self.doneButton.isEnabled = false
             self.iconList.image = itemToEdit?.icon.image
+        }else{
+            self.iconList.image = IconAsset.Folder.image
+            itemToEdit?.icon = IconAsset.Folder
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let identifier = segue.identifier, let iconPickerViewController = segue.destination as? IconPickerViewController,
+            let destination = iconPickerViewController as? IconPickerViewController {
+            
+            if (identifier == "selectIcon") {
+                destination.delegate = self
+            }
+        }
     }
 
 }
@@ -62,4 +78,12 @@ protocol ListDetailViewControllerDelegate : class {
     func ListDetailViewControllerDidCancel(_ controller: ListDetailViewController)
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishAddingItem item: CheckList)
     func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditingItem item: CheckList)
+}
+
+extension ListDetailViewController : IconPickerViewControllerDelegate{
+    func finishSelectIcon(withIcon icon : IconAsset) {
+        itemToEdit?.icon = icon
+        iconList.image = itemToEdit?.icon.image
+        tableView.reloadData()
+    }
 }
