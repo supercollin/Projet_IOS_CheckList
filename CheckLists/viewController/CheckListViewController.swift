@@ -40,6 +40,7 @@ class CheckListViewController: UITableViewController {
         }else{
             cell.checkMark.isHidden = true
         }
+        cell.checkMark.textColor = view.tintColor
         delegateUnchecked?.reloadTableView()
         return cell
     }
